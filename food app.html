@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #28a745;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .food-list {
+            margin-top: 30px;
+        }
+
+        .food-item {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .food-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            margin-right: 20px;
+        }
+
+        .food-item h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .food-item p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .food-description {
+            flex: 1;
+            text-align: left;
+        }
+
+        .food-price {
+            font-weight: bold;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .total-price {
+            margin-top: 30px;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .pay-now {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pay-now:hover {
+            background-color: #0069d9;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            font-size: 24px;
+            color: #28a745;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Section -->
+    <div id="loginContainer" class="container">
+        <h2>Food Delivery Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p id="errorMessage" class="error-message"></p>
+    </div>
+
+    <!-- Food Menu Section (hidden initially) -->
+    <div id="menuContainer" class="container hidden">
+        <h2>Available Food Items</h2>
+        <div class="food-list">
+            <div class="food-item">
+                <img src="https://png.pngtree.com/thumb_back/fw800/background/20240322/pngtree-all-delicious-pizza-fast-food-photo-image_15643746.jpg" alt="Pizza">
+                <div class="food-description">
+                    <h3>Pizza</h3>
+                    <p>Delicious cheesy pizza with a crispy crust.</p>
+                    <p class="food-price">Price: $10</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="10">
+            </div>
+            <div class="food-item">
+                <img src="https://static.vecteezy.com/system/resources/previews/023/558/535/non_2x/close-up-of-a-juicy-burger-with-fries-it-look-very-delicious-big-sandwich-hamburger-with-juicy-beef-burger-cheese-tomato-and-red-onion-photo.jpg" alt="Burger">
+                <div class="food-description">
+                    <h3>Burger</h3>
+                    <p>Juicy beef burger with fresh toppings.</p>
+                    <p class="food-price">Price: $5</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="5">
+            </div>
+            <div class="food-item">
+                <img src="https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/gelvqxlyrz3rrmezdctg" alt="Pasta">
+                <div class="food-description">
+                    <h3>Pasta</h3>
+                    <p>Creamy pasta with a savory sauce.</p>
+                    <p class="food-price">Price: $7</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="7">
+            </div>
+            <div class="food-item">
+                <img src="https://www.licious.in/blog/wp-content/uploads/2020/12/3-Step-Chicken-Salad.jpg" alt="Salad">
+                <div class="food-description">
+                    <h3>Salad</h3>
+                    <p>Fresh mixed salad with a tangy dressing.</p>
+                    <p class="food-price">Price: $4</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="4">
+            </div>
+            <div class="food-item">
+                <img src="https://www.allrecipes.com/thmb/i7yLualeJp6h7nuux-Dnr7AUI6o=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/4559474-vegetarian-sushi-Buckwheat-Queen-4x3-1-af11cac7218240e383dbe72ef6b1ec8f.jpg" alt="Sushi">
+                <div class="food-description">
+                    <h3>Sushi</h3>
+                    <p>Authentic Japanese sushi rolls.</p>
+                    <p class="food-price">Price: $12</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="12">
+            </div>
+            <div class="food-item">
+                <img src="https://www.foodandwine.com/thmb/nesQwmMJ6zA4Fb0TtAThMwdn56g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/steakhouse-style-rib-eyes-ft-recipe1118-235f4532bcf948efa82aab8065bb98d8.jpg" alt="Steak">
+                <div class="food-description">
+                    <h3>Steak</h3>
+                    <p>Grilled steak cooked to perfection.</p>
+                    <p class="food-price">Price: $20</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="20">
+            </div>
+            <div class="food-item">
+                <img src="https://creative-culinary.com/wp-content/uploads/black-forest-ice-cream-2.jpg" alt="Ice Cream">
+                <div class="food-description">
+                    <h3>Ice Cream</h3>
+                    <p>Delicious creamy ice cream.</p>
+                    <p class="food-price">Price: $3</p>
+                </div>
+                <input type="checkbox" class="food-checkbox" data-price="3">
+            </div>
+        </div>
+        <div class="total-price">Total Price: $<span id="totalAmount">0</span></div>
+        <button id="payNowButton" class="pay-now hidden">Pay Now</button>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessageContainer" class="container hidden">
+        <h2>Payment Successful!</h2>
+        <p class="success-message">Thank you for your order. Your payment has been processed successfully.</p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Simple hardcoded validation (for demo purposes)
+            if (username === "user" && password === "password123") {
+                // Hide login form and show food menu
+                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('menuContainer').classList.remove('hidden');
+            } else {
+                errorMessage.textContent = "Invalid username or password. Please try again.";
+            }
+        });
+
+        const foodCheckboxes = document.querySelectorAll('.food-checkbox');
+        const totalAmountElement = document.getElementById('totalAmount');
+        const payNowButton = document.getElementById('payNowButton');
+
+        foodCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotal);
+        });
+
+        function updateTotal() {
+            let total = 0;
+            let anyChecked = false;
+            foodCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.getAttribute('data-price'));
+                    anyChecked = true;
+                }
+            });
+            totalAmountElement.textContent = total.toFixed(2);
+            payNowButton.classList.toggle('hidden', !anyChecked);
+        }
+
+        // Add event listener for Pay Now button
+        payNowButton.addEventListener('click', function() {
+            document.getElementById('menuContainer').classList.add('hidden');
+            document.getElementById('successMessageContainer').classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
+
